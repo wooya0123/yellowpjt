@@ -9,10 +9,16 @@
 </head>
 <body>
   <div class="mt-3 container">
-    {% comment %} <div class="mt-3 mb-4">
+    <div class="mt-3 mb-4">
+      {% if user.is_authenticated %}
+        <h3>안녕, {{ user }}야 !</h3>
+      {% else %}
+        <h3>로그인 해주세요.</h3>
+      {% endif %}
       {% include '_navbar.html' %}
-    </div> {% endcomment %}
+    </div>
     <div class="mb-5">
+      <a href="{% url "accounts:signup" %}"><button class></button></a>
       {% block content %}
       {% endblock content %}
     </div>
