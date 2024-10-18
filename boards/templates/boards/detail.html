@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  .custom-button {
+    font-size: 5px;
+    margin-top: -1rem;
+  }
+</style>
+
+<div>
+  <div class="d-flex justify-content-between">
+    <h1 class="mb-4">상세 페이지</h1>
+  </div>
+  <p>글번호 : {{ board.id }}</p>  
+  <p>작성자 : {{ board.author }}</p>
+  <p>글제목 : {{ board.title }}</p>
+  <p>글내용 : {{ board.content }}</p>
+  <p>작성날짜 : {{ board.created_at }}</p>
+  <p>수정날짜 : {{ board.updated_at }}</p>
+  <hr>
+  <div class="mb-5 d-flex justify-content-between">
+    <a href="{% url 'boards:index' %}"><button class="btn btn-light">메인 페이지로</button></a>
+    {% if board.author == request.user %}
+    <div class="d-flex">
+      <a href="{% url 'boards:update' board.id %}"><button class="me-3 btn btn-success">수정하기</button></a>
+      <form action="{% url 'boards:detail' board.id%}" method='POST'>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">삭제하기</button>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+  {% endblock content %}
