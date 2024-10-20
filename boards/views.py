@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from .models import Board, Comment
@@ -14,7 +14,7 @@ def index(request):
     }
     return render(request, 'boards/index.html', context)
 
-# @login_required
+@login_required
 @require_http_methods(["GET", "POST"])
 def create(request):
     if request.method == 'POST':
@@ -45,7 +45,7 @@ def detail(request, post_pk):
     return render(request, 'boards/detail.html', context)
 
 
-# @login_required
+@login_required
 @require_http_methods(["GET", "POST"])
 def update(request, post_pk):
     board = get_object_or_404(Board, pk=post_pk)
